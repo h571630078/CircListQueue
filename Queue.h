@@ -16,18 +16,7 @@ class Queue
     {}
     ~Queue()
     {
-        if (head != nullptr)
-	{
-	    Node * trav = head->next;
-	    Node * tmp = nullptr;
-	    head->next = nullptr;
-	    while( trav != nullptr )
-	    {
-		tmp = trav;
-	        trav = trav->next;
-		delete tmp;
-	    }
-	}
+        deleteList();
     }
     void enqueue(int el)
     {
@@ -70,12 +59,18 @@ class Queue
 	return returnVal;
 
     }
-    int peek();
+    int peek()
+    {
+        return head->data;
+    }
     bool isEmpty()
     {
         return numNodes == 0;
     }
-    void clear();
+    void clear()
+    {
+        deleteList();
+    }
     void print()
     {
         Node * trav = head;
@@ -92,4 +87,20 @@ class Queue
   private:
     Node * head;
     int numNodes;
+    void deleteList()
+    {
+        if (head != nullptr)
+	{
+	    Node * trav = head->next;
+	    Node * tmp = nullptr;
+	    head->next = nullptr;
+	    while( trav != nullptr )
+	    {
+		tmp = trav;
+	        trav = trav->next;
+		delete tmp;
+	    }
+	}
+	head = nullptr;
+    }
 };
