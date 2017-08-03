@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <stdio.h>
 using namespace std;
 
 struct Node
@@ -49,7 +49,27 @@ class Queue
 	}
 	numNodes++;
     }
-    int dequeue();
+    int dequeue()
+    {
+	Node * trav = nullptr;
+	int returnVal = 0;
+        if(isEmpty())
+	{
+	    fprintf(stderr, "queue is empty\n");
+	}
+	else
+        {
+            returnVal = head->data;
+	    for(trav = head; trav->next != head; trav = trav->next)
+		    ;
+	    trav->next = head->next;
+	    delete head;
+	    head = trav->next;
+	    numNodes--;
+	}
+	return returnVal;
+
+    }
     int peek();
     bool isEmpty()
     {
